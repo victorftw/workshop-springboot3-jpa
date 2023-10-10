@@ -5,7 +5,8 @@ Este é um projeto de exemplo de uma aplicação de gerenciamento de usuários, 
   
 - `Java`
 - `Spring Boot`
-- `JPA (Hibernate)`
+- `JPA / Hibernate`
 - `H2 Database`
+- `Maven`
   
 </details>
