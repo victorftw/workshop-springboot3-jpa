@@ -1,5 +1,6 @@
 package com.victordev.course.resources.exceptions;
 
+import com.victordev.course.services.exceptions.DatabaseException;
 import com.victordev.course.services.exceptions.ResourceNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import java.time.Instant;
@@ -38,4 +39,22 @@ public class ResourceExceptionHandler {
     return ResponseEntity.status(status).body(err);
   }
 
+  /**
+   * Exception handler for handling custom DatabaseException. This method handles instances of the
+   * DatabaseException class and returns a ResponseEntity with an appropriate StandardError object
+   * containing error details.
+   *
+   * @param e The DatabaseException instance to handle.
+   * @param request The HttpServletRequest associated with the request that triggered the exception.
+   * @return A ResponseEntity containing a StandardError object with error details.
+   */
+
+  @ExceptionHandler(DatabaseException.class)
+  public ResponseEntity<StandardError> database(DatabaseException e, HttpServletRequest request) {
+    String error = "Database error";
+    HttpStatus status = HttpStatus.BAD_REQUEST;
+    StandardError err = new StandardError(Instant.now(), status.value(), error, e.getMessage(),
+        request.getRequestURI());
+    return ResponseEntity.status(status).body(err);
+  }
 }

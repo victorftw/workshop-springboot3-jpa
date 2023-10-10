@@ -2,10 +2,13 @@ package com.victordev.course.services;
 
 import com.victordev.course.entities.User;
 import com.victordev.course.repositories.UserRepository;
+import com.victordev.course.services.exceptions.DatabaseException;
 import com.victordev.course.services.exceptions.ResourceNotFoundException;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 /**
@@ -31,8 +34,22 @@ public class UserService {
     return repository.save(obj);
   }
 
+  /**
+   * Delete a user by its ID.
+   *
+   * @param id The ID of the user to be deleted.
+   * @throws ResourceNotFoundException If the user with the specified ID is not found in the
+   *         repository.
+   */
+
   public void delete(Long id) {
-    repository.deleteById(id);
+    try {
+      repository.deleteById(id);
+    } catch (EmptyResultDataAccessException e) {
+      throw new ResourceNotFoundException(id);
+    } catch (DataIntegrityViolationException e) {
+      throw new DatabaseException(e.getMessage());
+    }
   }
 
   /**
