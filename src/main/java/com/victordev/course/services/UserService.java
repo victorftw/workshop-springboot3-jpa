@@ -34,4 +34,31 @@ public class UserService {
     repository.deleteById(id);
   }
 
+  /**
+   * Updates an existing User entity by its unique identifier.
+   * 
+   * <p>
+   * This method allows for the modification of an existing User entity identified by its unique
+   * identifier. The modified User entity is returned as a result of the update.
+   * </p>
+   *
+   * @param id The unique identifier of the User entity to be updated.
+   * 
+   * @param obj The User object containing the updated information.
+   * 
+   * @return The updated User entity.
+   */
+
+  public User update(Long id, User obj) {
+    User entity = repository.getReferenceById(id);
+    updateData(entity, obj);
+    return repository.save(entity);
+  }
+
+  private void updateData(User entity, User obj) {
+    entity.setName(obj.getName());
+    entity.setEmail(obj.getEmail());
+    entity.setPhone(obj.getPhone());
+  }
+
 }
