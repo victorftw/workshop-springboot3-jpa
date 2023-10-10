@@ -2,8 +2,10 @@ Este é um projeto de exemplo de uma aplicação de gerenciamento de usuários, 
 
 <details>
   <summary><strong> Tecnologias utilizadas</strong></summary><br />
+  
 - `Java`
 - `Spring Boot`
 - `JPA (Hibernate)`
 - `H2 Database`
+  
 </details>
